@@ -1,6 +1,7 @@
 ﻿#pragma once
 #include "KamataEngine.h"
 #include "MapChipField.h"
+#include "Boss.h"
 #include "MyMath.h"
 #include <vector>
 
@@ -40,9 +41,19 @@ private:
 	//--------------------3Dモデル----------------------//
 	KamataEngine::Model* modelBlock_ = nullptr;
 
-
 	//デバックカメラ有効
 	bool isDebugCameraActive_ = false;
 
+	//boss
+	//クラス
+	Boss* boss_ = nullptr;
+	//モデル
+	KamataEngine::Model* boss_model_ = nullptr;
+	//アタックモデル
+	KamataEngine::Model* boss_at_model_ = nullptr;
+	//ポジション
+	//KamataEngine::Vector3 bossPosition_ = { 0.0f, 1.0f, 0.0f };
+	//アタックポジション
+	//KamataEngine::Vector3 attackPosition_ = { 0.0f, 1.0f, 1.0f };
 };
 

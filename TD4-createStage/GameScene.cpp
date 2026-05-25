@@ -18,6 +18,11 @@ GameScene::~GameScene()
 	delete modelBlock_;
 	delete mapChipField_;
 	delete debugCamera_;
+
+	//bossの解放
+	delete boss_;
+	delete boss_model_;
+	delete boss_at_model_;
 }
 
 void GameScene::Initialize()
@@ -51,6 +56,13 @@ void GameScene::Initialize()
 	modelBlock_ = Model::CreateFromOBJ("block");/*ブロック*/
 
 	GenerateBlocks();
+
+	//bossの生成
+	boss_ = new Boss();
+	boss_model_ = Model::CreateFromOBJ("enemy");
+	boss_->Initialize(boss_model_, &camera_, boss_->bossPosition_);
+	boss_at_model_ = Model::CreateFromOBJ("player");
+	boss_->atInitialize(boss_at_model_, &camera_, boss_->attackPosition_);
 
 }
 
@@ -97,6 +109,10 @@ void GameScene::Update()
 		//ビュープロジェクション行列の更新と転送
 		camera_.UpdateMatrix();
 	}
+
+	//bossの更新
+	boss_->Update();
+	boss_->atUpdate();
 }
 
 void GameScene::Draw()
@@ -116,6 +132,10 @@ void GameScene::Draw()
 		}
 	}
 
+	//bossの描画
+	boss_->Draw();
+	boss_->atDraw();
+	
 	Model::PostDraw();
 
 }
